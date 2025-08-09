@@ -8,20 +8,29 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Best DJ Crates for Pro & Female DJs | TOP DJ CRATES</title>
-        <meta 
-          name="description" 
-          content="Where do DJs get their music? From the best DJ crates online. Save on high-quality DJ music, handpicked for professional and female DJs. Stop searching, start playing." 
+        <title>TOP DJ CRATES - High-Quality Music Packs & Tools</title>
+        <meta
+          name="description"
+          content="The ultimate source for pro DJs. Stop searching and start playing with exclusive, high-quality music crates for Afro-House, Funky House, Amapiano, R&B, and more. Curated to save you time and money."
         />
-        <meta 
-          name="keywords" 
-          content="female djs, best dj crates, save on dj music, best music for djs, where do djs get their music, high quality dj music, dj packs, music for djs, afro house, funky house, arabic mashups" 
+        <meta
+          name="keywords"
+          content="dj crates, music for djs, dj music, dj packs, dj tools, music library, afro house, funky house, amapiano, r&b, hip hop, disco house, wav files, rekordbox, serato, traktor"
         />
-        {/* Open Graph tags for social sharing will inherit from _app.js, but we can override them for specific pages if needed */}
-        <meta property="og:title" content="Best DJ Crates for Pro & Female DJs | TOP DJ CRATES" />
-        <meta property="og:description" content="The ultimate source for high-quality, exclusive DJ music packs. Curated for professional and female DJs to save time and elevate sets." />
+        {/* Open Graph tags for social sharing */}
+        <meta property="og:title" content="TOP DJ CRATES - High-Quality Music Packs & Tools" />
+        <meta property="og:description" content="The ultimate source for professional DJs. Stop searching and start playing with exclusive, high-quality music crates for Afro-House, Funky House, Amapiano, R&B, and more. Curated to save you time and money." />
+        <meta property="og:url" content="https://www.topdjcrates.com" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://i.imgur.com/wSLtGSN.jpeg" />
+        
+        {/* Twitter Card tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="TOP DJ CRATES - High-Quality Music Packs & Tools" />
+        <meta name="twitter:description" content="The ultimate source for professional DJs. Stop searching and start playing with exclusive, high-quality music crates for Afro-House, Funky House, Amapiano, R&B, and more. Curated to save you time and money." />
+        <meta name="twitter:image" content="https://i.imgur.com/wSLtGSN.jpeg" />
       </Head>
-      
+
       <div className="min-h-screen bg-gradient-to-br from-gray-950 to-purple-950 text-gray-100 font-sans antialiased">
         <Header />
         <main>
@@ -30,10 +39,10 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-br from-gray-950 to-purple-950 opacity-60"></div>
             <div className="z-10 max-w-4xl mx-auto">
               <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 drop-shadow-2xl animate-fade-in-up">
-                The Best Music For Pro & Female DJs
+                Stop Searching ! Start Playing !
               </h1>
               <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-3xl mx-auto drop-shadow-lg animate-fade-in-up delay-200">
-                Stop wondering where DJs get their music. We provide the best DJ crates with high-quality, exclusive tracks that save you time and money.
+                Stop spending hours digging for tracks. We provide the best DJ crates with high-quality, exclusive tracks that save you time and money.
               </p>
               <Link href="/music" legacyBehavior>
                 <a className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-400 focus:ring-opacity-75">
