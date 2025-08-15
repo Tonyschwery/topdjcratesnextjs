@@ -18,7 +18,7 @@ export default function AboutPage() {
           content="about top dj crates, where djs get music, dj music source, female dj community, professional dj tools" 
         />
         <meta property="og:title" content="Where Do DJs Get Their Music? | The TOP DJ CRATES Story" />
-        <meta property="og:description" content="Learn why we're the trusted source for high-quality, exclusive music for professional and female DJs." />
+        <meta property="og:description" content="Learn why we're the trusted source for high-quality, exclusive music for professional and DJs." />
       </Head>
 
       <div className="min-h-screen bg-gradient-to-br from-gray-950 to-purple-950 text-gray-100 font-sans antialiased">

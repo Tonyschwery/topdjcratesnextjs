@@ -19,7 +19,7 @@ export default function MusicPage({ musicPacks, currentlyPlayingAudioUrl, curren
           content="dj music, dj crates, afro house dj, funky house music, arabic remixes, dj packs, high-quality wav, music for female djs" 
         />
         <meta property="og:title" content="High-Quality DJ Music & Crates | TOP DJ CRATES" />
-        <meta property="og:description" content="Browse exclusive, handpicked DJ crates ready for your set. High-quality WAV files for professional and female DJs." />
+        <meta property="og:description" content="Browse exclusive, handpicked DJ crates ready for your set. High-quality WAV files for professional DJs." />
       </Head>
       
       <div className="min-h-screen bg-gradient-to-br from-gray-950 to-purple-950 text-gray-100 font-sans antialiased">
