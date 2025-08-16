@@ -80,7 +80,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-          {/* ... (your existing Head tags) ... */}
+          <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5306322008183785"
+          crossOrigin="anonymous"
+        ></script>
       </Head>
       
       <AnimatePresence>
