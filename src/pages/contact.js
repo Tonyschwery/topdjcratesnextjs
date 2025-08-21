@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 
+// Simplified Contact Page Component
 export default function ContactPage() {
   const [contactFormState, setContactFormState] = useState({ name: '', email: '', message: '' });
   const [formSubmissionStatus, setFormSubmissionStatus] = useState(null);
@@ -38,25 +37,57 @@ export default function ContactPage() {
         <meta name="description" content="Get in touch with TOP DJ CRATES for general questions and inquiries." />
       </Head>
 
-      <div className="min-h-screen bg-gradient-to-br from-gray-950 to-purple-950 text-gray-100 font-sans antialiased">
-        <Header />
-        <main className="pt-24">
-          <section id="contact" className="container mx-auto py-16 px-4 md:px-8 text-center bg-gray-900 rounded-xl shadow-inner-xl my-12">
-            <h3 className="text-4xl md:text-5xl font-extrabold text-emerald-400 mb-10">General Contact</h3>
-            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8">For questions not related to custom mixes, use the form below.</p>
-            <form onSubmit={handleContactFormSubmit} className="max-w-xl mx-auto space-y-6">
-              <input type="text" name="name" placeholder="Your Name" value={contactFormState.name} onChange={handleContactFormChange} required className="w-full p-4 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
-              <input type="email" name="email" placeholder="Your Email" value={contactFormState.email} onChange={handleContactFormChange} required className="w-full p-4 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500" />
-              <textarea name="message" placeholder="Your Message" rows="5" value={contactFormState.message} onChange={handleContactFormChange} required className="w-full p-4 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 resize-y"></textarea>
-              <button type="submit" disabled={formSubmissionStatus === 'submitting'} className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-emerald-400 disabled:opacity-50">
-                {formSubmissionStatus === 'submitting' ? 'Sending...' : 'Send Message'}
-              </button>
-              {formSubmissionStatus === 'success' && <p className="text-emerald-400 mt-4">Thank you! Your message has been sent.</p>}
-              {formSubmissionStatus === 'error' && <p className="text-red-500 mt-4">Something went wrong. Please try again.</p>}
-            </form>
-          </section>
-        </main>
-        <Footer />
+      {/* Page-specific content */}
+      <div className="px-4 py-16">
+        <section id="contact" className="text-center">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-primary mb-4">
+            General Contact
+          </h1>
+          <p className="text-lg md:text-xl text-text max-w-2xl mx-auto mb-8">
+            For questions not related to custom mixes, use the form below.
+          </p>
+          
+          <form onSubmit={handleContactFormSubmit} className="max-w-xl mx-auto space-y-6">
+            <input 
+              type="text" 
+              name="name" 
+              placeholder="Your Name" 
+              value={contactFormState.name} 
+              onChange={handleContactFormChange} 
+              required 
+              className="w-full p-4 rounded-lg bg-zinc-900 text-text placeholder-gray-500 border border-zinc-700 focus:border-accent focus:ring-1 focus:ring-accent" 
+            />
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Your Email" 
+              value={contactFormState.email} 
+              onChange={handleContactFormChange} 
+              required 
+              className="w-full p-4 rounded-lg bg-zinc-900 text-text placeholder-gray-500 border border-zinc-700 focus:border-accent focus:ring-1 focus:ring-accent" 
+            />
+            <textarea 
+              name="message" 
+              placeholder="Your Message" 
+              rows="5" 
+              value={contactFormState.message} 
+              onChange={handleContactFormChange} 
+              required 
+              className="w-full p-4 rounded-lg bg-zinc-900 text-text placeholder-gray-500 border border-zinc-700 focus:border-accent focus:ring-1 focus:ring-accent resize-y"
+            ></textarea>
+            
+            <button 
+              type="submit" 
+              disabled={formSubmissionStatus === 'submitting'} 
+              className="bg-accent hover:opacity-80 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50"
+            >
+              {formSubmissionStatus === 'submitting' ? 'Sending...' : 'Send Message'}
+            </button>
+
+            {formSubmissionStatus === 'success' && <p className="text-green-400 font-semibold mt-4">Thank you! Your message has been sent.</p>}
+            {formSubmissionStatus === 'error' && <p className="text-red-400 font-semibold mt-4">Something went wrong. Please try again.</p>}
+          </form>
+        </section>
       </div>
     </>
   );
