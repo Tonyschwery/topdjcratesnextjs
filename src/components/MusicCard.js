@@ -74,27 +74,40 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex gap-3 mt-6">
+        {/* --- ACTION BUTTONS & PRICING --- */}
+        <div className="flex items-center justify-between gap-4 mt-6">
+          {/* Pricing Display */}
+          <div className="flex items-baseline gap-2">
+            <span className="text-md text-gray-500 line-through">
+              $25.00
+            </span>
+            <span className="text-xl font-bold text-gold">
+              $20.00
+            </span>
+          </div>
+
+          {/* "Get Crate" Button */}
           <a
             href={pack.gumroadLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-primary text-background font-bold py-2 px-4 rounded-md text-center hover:opacity-90 transition-opacity duration-200"
+            className="bg-primary text-background font-bold py-2 px-4 rounded-md text-center hover:opacity-90 transition-opacity duration-200"
           >
             Get Crate
           </a>
-          {pack.demoLink && (
-            <a
-              href={pack.demoLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex-1 bg-zinc-800 text-text font-bold py-2 px-4 rounded-md text-center hover:bg-zinc-700 transition-colors duration-200"
-            >
-              Free Demo
-            </a>
-          )}
         </div>
+        
+        {/* Demo Link (if it exists) */}
+        {pack.demoLink && (
+          <a
+            href={pack.demoLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full mt-3 bg-zinc-800 text-text font-bold py-2 px-4 rounded-md text-center hover:bg-zinc-700 transition-colors duration-200"
+          >
+            Free Demo
+          </a>
+        )}
       </div>
     </div>
   );
