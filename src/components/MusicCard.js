@@ -2,7 +2,6 @@ import React from 'react';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 
 const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgress, currentTrackDuration, onSeek }) => {
-  // isPlaying is now a function that checks against a specific track's URL
   const isPlaying = (audioUrl) => currentPlayingAudioUrl === audioUrl;
 
   const formatTime = (seconds) => {
@@ -19,6 +18,20 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
     onSeek(percentage);
   };
 
+  // --- NEW FUNCTION TO HANDLE THE PIXEL EVENT ---
+  const handleGetCrateClick = () => {
+    // Check if the Facebook Pixel function 'fbq' is available
+    if (typeof window !== 'undefined' && window.fbq) {
+      window.fbq('track', 'AddToCart', {
+        content_name: pack.title,
+        content_ids: [pack.id],
+        content_type: 'product',
+        value: 20.00, // The discounted price
+        currency: 'USD'
+      });
+    }
+  };
+
   return (
     <div className="bg-zinc-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full animate-fade-in-up">
       <div className="relative">
@@ -29,7 +42,7 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
         <h3 className="font-bold text-xl text-primary mb-2 truncate">{pack.title}</h3>
         <p className="text-sm text-gray-400 mb-4 flex-grow">{pack.description}</p>
         
-        {/* Audio Previews Section - Now maps over all tracks */}
+        {/* Audio Previews Section */}
         <div className="mt-auto space-y-3 pt-4">
           <h4 className="font-bold text-lg text-primary border-b border-zinc-700 pb-2 mb-3">Track Previews</h4>
           <div className="space-y-3">
@@ -52,7 +65,7 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
                   </div>
                 </div>
 
-                {/* Progress Bar - Only shows for the currently playing track */}
+                {/* Progress Bar */}
                 {isPlaying(track.audioPreview) && (
                   <div className="w-full flex items-center gap-2 mt-2 pl-12">
                     <div
@@ -86,11 +99,12 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
             </span>
           </div>
 
-          {/* "Get Crate" Button */}
+          {/* "Get Crate" Button with onClick event */}
           <a
             href={pack.gumroadLink}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={handleGetCrateClick} // <-- THIS IS THE NEW CODE
             className="bg-primary text-background font-bold py-2 px-4 rounded-md text-center hover:opacity-90 transition-opacity duration-200"
           >
             Get Crate
