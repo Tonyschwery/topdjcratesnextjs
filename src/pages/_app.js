@@ -4,8 +4,8 @@ import Script from 'next/script';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
 import '@/styles/globals.css';
-import Header from '@/components/Header'; // Import Header here
-import Footer from '@/components/Footer'; // Import Footer here
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -84,8 +84,16 @@ function MyApp({ Component, pageProps }) {
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5306322008183785"
           crossOrigin="anonymous"
         ></script>
+        
+        {/* Meta Pixel noscript fallback - IMPORTANT */}
+        <noscript>
+          <img height="1" width="1" style={{display: 'none'}}
+            src="https://www.facebook.com/tr?id=1295511112023946&ev=PageView&noscript=1"
+          />
+        </noscript>
       </Head>
       
+      {/* --- Google Analytics Script --- */}
       <Script 
         strategy="afterInteractive" 
         src="https://www.googletagmanager.com/gtag/js?id=G-S4DNDVZD5L"
@@ -101,8 +109,27 @@ function MyApp({ Component, pageProps }) {
           gtag('config', 'G-S4DNDVZD5L');
         `}
       </Script>
+
+      {/* --- Meta Pixel Script --- */}
+      <Script
+        id="meta-pixel"
+        strategy="afterInteractive"
+      >
+        {`
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', '1295511112023946');
+          fbq('track', 'PageView');
+        `}
+      </Script>
       
-      {/* FINAL CORRECTED LAYOUT */}
+      {/* --- Site-Wide Layout --- */}
       <div className="min-h-screen bg-background text-text font-sans antialiased">
         <Header />
         <main className="container mx-auto bg-vinyl-grooves">
