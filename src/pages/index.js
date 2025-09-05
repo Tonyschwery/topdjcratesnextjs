@@ -2,38 +2,21 @@ import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-// Simplified Homepage Component
-export default function Home({ musicPacks }) {
+export default function Home({ musicPacks = [] }) {
   return (
     <>
       <Head>
         <title>TOP DJ CRATES - High-Quality Music Packs & Tools</title>
-        <meta
-          name="description"
-          content="The ultimate source for pro DJs. Stop searching and start playing with exclusive, high-quality music crates."
-        />
-        <meta property="og:title" content="TOP DJ CRATES - High-Quality Music Packs & Tools" />
-        <meta property="og:description" content="The ultimate source for professional DJs. Stop searching and start playing." />
-        <meta property="og:url" content="https://www.topdjcrates.com" />
-        <meta property="og:type" content="website" />
+        <meta name="description" content="The ultimate source for pro DJs. Stop searching and start playing with exclusive, high-quality music crates."/>
       </Head>
-
-      {/* Page-specific content */}
       <div className="px-4">
         <section className="text-center py-20 md:py-32">
-          <h1 className="text-4xl md:text-6xl font-extrabold text-primary mb-4">
-            The Crates DJs Actually Use
-          </h1>
-          <p className="text-lg md:text-xl text-text max-w-2xl mx-auto mb-8">
-            Stop searching. Start playing. High-quality, curated music packs for professional DJs.
-          </p>
+          <h1 className="text-4xl md:text-6xl font-extrabold text-primary mb-4">The Crates DJs Actually Use</h1>
+          <p className="text-lg md:text-xl text-text max-w-2xl mx-auto mb-8">Stop searching. Start playing. High-quality, curated music packs for professional DJs.</p>
           <Link href="/music" legacyBehavior>
-            <a className="bg-accent hover:opacity-80 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
-              Explore The Crates
-            </a>
+            <a className="bg-accent hover:opacity-80 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">Explore The Crates</a>
           </Link>
         </section>
-
         <section className="pb-20">
           <h2 className="text-3xl font-bold text-primary mb-8 text-center">Featured Crates</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
