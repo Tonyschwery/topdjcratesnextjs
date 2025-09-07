@@ -1,6 +1,7 @@
 import React from 'react';
 import { PlayIcon, PauseIcon } from '@heroicons/react/24/solid';
 
+// This is your original, working component with only the tracking added.
 const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgress, currentTrackDuration, onSeek }) => {
   const isPlaying = (audioUrl) => currentPlayingAudioUrl === audioUrl;
 
@@ -18,6 +19,7 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
     onSeek(percentage);
   };
 
+  // THIS IS THE ONLY CODE I'VE ADDED
   const handleGetCrateClick = () => {
     if (typeof window !== 'undefined' && window.fbq) {
       window.fbq('track', 'InitiateCheckout', {
@@ -34,7 +36,6 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
     <div className="bg-zinc-900 rounded-lg shadow-lg p-4 flex flex-col justify-between h-full group">
       <div>
         <div className="relative">
-          {/* This is the corrected line that matches your working home page */}
           <img src={pack.cover} alt={pack.title} className="w-full h-48 object-cover rounded-md mb-4" />
         </div>
         <h3 className="text-xl font-bold mb-2 text-text">{pack.title}</h3>
@@ -96,7 +97,7 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
           href={pack.gumroadLink}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={handleGetCrateClick}
+          onClick={handleGetCrateClick} // ADDED THIS FOR TRACKING
           className="bg-primary text-background font-bold py-2 px-4 rounded-md text-center hover:opacity-90 transition-opacity duration-200"
         >
           Get Crate
