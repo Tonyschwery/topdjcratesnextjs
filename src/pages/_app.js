@@ -83,19 +83,52 @@ function MyApp({ Component, pageProps }) {
     };
   }, [musicPacks]);
 
-
-  // Your existing hooks
+  // Cleanup when unmounting
   useEffect(() => {
-    return () => { if (audioPlayerRef.current) { audioPlayerRef.current.pause(); audioPlayerRef.current.src = ""; } };
+    return () => { 
+      if (audioPlayerRef.current) { 
+        audioPlayerRef.current.pause(); 
+        audioPlayerRef.current.src = ""; 
+      } 
+    };
   }, []);
 
+
+  // ✅ Fixed play/pause logic
   const handlePreview = useCallback((audioUrl) => {
-    // ... your handlePreview function
+    if (!audioPlayerRef.current) return;
+
+    if (currentlyPlayingAudioUrl === audioUrl) {
+      if (audioPlayerRef.current.paused) {
+        audioPlayerRef.current.play();
+      } else {
+        audioPlayerRef.current.pause();
+      }
+    } else {
+      audioPlayerRef.current.src = audioUrl;
+      audioPlayerRef.current.play();
+      setCurrentlyPlayingAudioUrl(audioUrl);
+
+      audioPlayerRef.current.ontimeupdate = () => {
+        setCurrentTrackProgress(
+          (audioPlayerRef.current.currentTime / audioPlayerRef.current.duration) * 100
+        );
+        setCurrentTrackDuration(audioPlayerRef.current.duration);
+      };
+
+      audioPlayerRef.current.onended = () => {
+        setCurrentlyPlayingAudioUrl(null);
+        setCurrentTrackProgress(0);
+      };
+    }
   }, [currentlyPlayingAudioUrl]);
 
+  // ✅ Progress bar seeking
   const handleSeek = useCallback((percentage) => {
-    // ... your handleSeek function
-  }, []);
+    if (audioPlayerRef.current && currentTrackDuration > 0) {
+      audioPlayerRef.current.currentTime = (percentage / 100) * currentTrackDuration;
+    }
+  }, [currentTrackDuration]);
 
   const sharedProps = {
     musicPacks,
@@ -111,8 +144,6 @@ function MyApp({ Component, pageProps }) {
       <Head>
         {/* ... your head content ... */}
       </Head>
-      
-      {/* ... your script tags ... */}
       
       <div className="min-h-screen bg-background text-text font-sans antialiased">
         <Header />
@@ -138,11 +169,13 @@ function MyApp({ Component, pageProps }) {
           />
         )}
         
-        {/* --- RENDER THE SOCIAL PROOF POP-UP --- */}
         <SocialProofPopup 
           notification={notification} 
           onClose={() => setNotification(null)} 
         />
+
+        {/* ✅ Hidden audio element for reliable playback */}
+        <audio ref={audioPlayerRef} style={{ display: "none" }} controls />
       </div>
     </>
   );
