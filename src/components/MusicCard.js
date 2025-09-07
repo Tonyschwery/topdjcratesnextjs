@@ -20,7 +20,6 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
 
   const handleGetCrateClick = () => {
     if (typeof window !== 'undefined' && window.fbq) {
-      // This is the correct event for starting the checkout process.
       window.fbq('track', 'InitiateCheckout', {
         content_name: pack.title,
         content_ids: [pack.id],
@@ -35,7 +34,8 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
     <div className="bg-zinc-900 rounded-lg shadow-lg p-4 flex flex-col justify-between h-full group">
       <div>
         <div className="relative">
-          <img src={pack.imageUrl} alt={pack.title} className="w-full h-48 object-cover rounded-md mb-4" />
+          {/* This is the corrected line that matches your working home page */}
+          <img src={pack.cover} alt={pack.title} className="w-full h-48 object-cover rounded-md mb-4" />
         </div>
         <h3 className="text-xl font-bold mb-2 text-text">{pack.title}</h3>
         <p className="text-gray-400 mb-4 text-sm">{pack.description}</p>
@@ -93,7 +93,7 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
         )}
 
         <a
-          href={pack.gumroadLink} // This should be your Payhip link
+          href={pack.gumroadLink}
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleGetCrateClick}
