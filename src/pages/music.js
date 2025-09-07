@@ -10,6 +10,9 @@ export default function MusicPage({
   handlePreview = () => {}, 
   handleSeek = () => {} 
 }) {
+  // This line will show us the exact data your page is getting.
+  console.log('--- DEBUGGING MUSIC PACKS DATA ---', musicPacks);
+
   return (
     <>
       <Head>
