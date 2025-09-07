@@ -144,7 +144,19 @@ function MyApp({ Component, pageProps }) {
       <Head>
         {/* ... your head content ... */}
       </Head>
-      
+       {/* ✅ Google Analytics 4 tag */}
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-S4DNDVZD5L"
+        strategy="afterInteractive"
+      />
+      <Script id="ga4-init" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-S4DNDVZD5L');
+        `}
+      </Script>
       <div className="min-h-screen bg-background text-text font-sans antialiased">
         <Header />
         <main className="container mx-auto bg-vinyl-grooves">
