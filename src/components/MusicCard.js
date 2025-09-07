@@ -20,105 +20,99 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
 
   const handleGetCrateClick = () => {
     if (typeof window !== 'undefined' && window.fbq) {
-      window.fbq('track', 'AddToCart', {
+      // This is the correct event for starting the checkout process.
+      window.fbq('track', 'InitiateCheckout', {
         content_name: pack.title,
         content_ids: [pack.id],
         content_type: 'product',
-        value: pack.discountedPrice, // DYNAMIC VALUE
+        value: pack.discountedPrice,
         currency: 'USD'
       });
     }
   };
 
   return (
-    <div className="bg-zinc-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 flex flex-col h-full animate-fade-in-up">
-      <div className="relative">
-        <img src={pack.cover} alt={pack.title} className="w-full h-auto object-cover" />
+    <div className="bg-zinc-900 rounded-lg shadow-lg p-4 flex flex-col justify-between h-full group">
+      <div>
+        <div className="relative">
+          <img src={pack.imageUrl} alt={pack.title} className="w-full h-48 object-cover rounded-md mb-4" />
+        </div>
+        <h3 className="text-xl font-bold mb-2 text-text">{pack.title}</h3>
+        <p className="text-gray-400 mb-4 text-sm">{pack.description}</p>
       </div>
 
-      <div className="p-5 flex flex-col flex-grow">
-        <h3 className="font-bold text-xl text-primary mb-2 truncate">{pack.title}</h3>
-        <p className="text-sm text-gray-400 mb-4 flex-grow">{pack.description}</p>
-        
-        {pack.tracks && pack.tracks.length > 0 && (
-          <div className="mt-auto space-y-3 pt-4">
-            <h4 className="font-bold text-lg text-primary border-b border-zinc-700 pb-2 mb-3">Track Previews</h4>
-            <div className="space-y-3">
-              {pack.tracks.map((track) => (
-                <div key={track.id}>
-                  <div className="flex items-center gap-3">
+      {pack.tracks && pack.tracks.length > 0 && (
+        <div className="flex-grow">
+          <h4 className="text-sm font-semibold mb-2 text-gray-300">Tracks:</h4>
+          <div className="space-y-2">
+            {pack.tracks.map((track) => (
+              <div key={track.audioUrl}>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
                     <button
-                      onClick={() => onPreview(track.audioPreview)}
-                      className="bg-accent text-white p-2 rounded-full hover:opacity-80 transition-opacity duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-zinc-900 focus:ring-accent"
-                      aria-label={isPlaying(track.audioPreview) ? `Pause ${track.title}` : `Play ${track.title}`}
+                      onClick={() => onPreview(track.audioUrl)}
+                      className="text-primary hover:text-gold transition-colors duration-200"
                     >
-                      {isPlaying(track.audioPreview) ? (
-                        <PauseIcon className="h-5 w-5" />
-                      ) : (
-                        <PlayIcon className="h-5 w-5" />
-                      )}
+                      {isPlaying(track.audioUrl) ? <PauseIcon className="h-5 w-5" /> : <PlayIcon className="h-5 w-5" />}
                     </button>
-                    <div className="text-sm text-gray-400 truncate">
-                      <span className="font-medium text-text">{track.title}</span>
-                    </div>
+                    <span className="text-xs text-gray-300">{track.name}</span>
                   </div>
-
-                  {isPlaying(track.audioPreview) && (
-                    <div className="w-full flex items-center gap-2 mt-2 pl-12">
+                </div>
+                {isPlaying(track.audioUrl) && (
+                    <div className="mt-1">
                       <div
-                        className="bg-zinc-700 rounded-full h-1.5 w-full cursor-pointer"
+                        className="bg-gray-700 rounded-full h-1 cursor-pointer"
                         onClick={handleProgressBarClick}
                       >
                         <div
-                          className="bg-accent h-1.5 rounded-full"
+                          className="bg-primary h-1 rounded-full"
                           style={{ width: `${currentTrackProgress}%` }}
-                        />
+                        ></div>
                       </div>
-                      <span className="text-xs text-gray-500 w-12 text-right">
-                        {formatTime(currentTrackDuration)}
+                      <span className="text-xs text-gray-500">
+                        {formatTime(currentTrackDuration * (currentTrackProgress / 100))} / {formatTime(currentTrackDuration)}
                       </span>
                     </div>
                   )}
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="flex items-center justify-between gap-4 mt-6">
+        {pack.originalPrice && pack.discountedPrice && (
+          <div className="flex items-baseline gap-2">
+            <span className="text-md text-gray-500 line-through">
+              ${pack.originalPrice.toFixed(2)}
+            </span>
+            <span className="text-xl font-bold text-gold">
+              ${pack.discountedPrice.toFixed(2)}
+            </span>
           </div>
         )}
 
-        <div className="flex items-center justify-between gap-4 mt-6">
-          {pack.originalPrice && pack.discountedPrice && (
-            <div className="flex items-baseline gap-2">
-              <span className="text-md text-gray-500 line-through">
-                ${pack.originalPrice.toFixed(2)}
-              </span>
-              <span className="text-xl font-bold text-gold">
-                ${pack.discountedPrice.toFixed(2)}
-              </span>
-            </div>
-          )}
-
-          <a
-            href={pack.gumroadLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleGetCrateClick}
-            className="bg-primary text-background font-bold py-2 px-4 rounded-md text-center hover:opacity-90 transition-opacity duration-200"
-          >
-            Get Crate
-          </a>
-        </div>
-        
-        {pack.demoLink && (
-          <a
-            href={pack.demoLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full mt-3 bg-zinc-800 text-text font-bold py-2 px-4 rounded-md text-center hover:bg-zinc-700 transition-colors duration-200"
-          >
-            Free Demo
-          </a>
-        )}
+        <a
+          href={pack.gumroadLink} // This should be your Payhip link
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleGetCrateClick}
+          className="bg-primary text-background font-bold py-2 px-4 rounded-md text-center hover:opacity-90 transition-opacity duration-200"
+        >
+          Get Crate
+        </a>
       </div>
+      
+      {pack.demoLink && (
+        <a
+          href={pack.demoLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full mt-3 bg-zinc-800 text-text font-bold py-2 px-4 rounded-md text-center hover:bg-zinc-700 transition-colors duration-200"
+        >
+          Free Demo
+        </a>
+      )}
     </div>
   );
 };
