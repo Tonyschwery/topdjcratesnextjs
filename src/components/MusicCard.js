@@ -54,7 +54,7 @@ const MusicCard = ({ pack, onPreview, currentPlayingAudioUrl, currentTrackProgre
                     >
                       {isPlaying(track.audioPreview) ? <PauseIcon className="h-5 w-5" /> : <PlayIcon className="h-5 w-5" />}
                     </button>
-                    <span className="text-xs text-gray-300">{track.name}</span>
+                    <span className="text-xs text-gray-300">{track.title}</span>
                   </div>
                 </div>
                 {isPlaying(track.audioPreview) && ( // CORRECTED THIS LINE
