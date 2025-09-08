@@ -1,7 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import FeaturedCratesCarousel from '../components/FeaturedCratesCarousel';
 
 export default function Home({ musicPacks = [] }) {
   return (
@@ -20,7 +19,19 @@ export default function Home({ musicPacks = [] }) {
         </section>
         <section className="pb-20">
           <h2 className="text-3xl font-bold text-primary mb-8 text-center">Featured Crates</h2>
-          <FeaturedCratesCarousel musicPacks={musicPacks} />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {musicPacks && musicPacks.slice(0, 8).map((pack) => (
+              <Link key={pack.id} href="/music" passHref>
+                <div className="bg-zinc-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer group">
+                  <img src={pack.cover} alt={pack.title} className="w-full h-auto object-cover group-hover:opacity-80 transition-opacity" />
+                  <div className="p-4">
+                    <h3 className="font-bold text-lg text-primary truncate">{pack.title}</h3>
+                    <p className="text-sm text-gray-400">{pack.artist}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </section>
       </div>
     </>
