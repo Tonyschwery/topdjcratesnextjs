@@ -177,7 +177,7 @@ function MyApp({ Component, pageProps }) {
         {showPopup && (
           <PromoPopup 
             onClose={() => setShowPopup(false)} 
-            purchaseLink="https://payhip.com/order?link=nsktu&pricing_plan=nLWRm7KPGa" 
+            purchaseLink="https://topdjcrates.gumroad.com/l/guvsms" 
           />
         )}
         
