@@ -10,14 +10,63 @@ export default function MusicPage({
   handlePreview = () => {}, 
   handleSeek = () => {} 
 }) {
-  // This line will show us the exact data your page is getting.
-  console.log('--- DEBUGGING MUSIC PACKS DATA ---', musicPacks);
 
+  // --- NEW: GENERATE PRODUCT SCHEMA FOR SEO ---
+  const generateProductSchema = () => {
+    if (!musicPacks || musicPacks.length === 0) {
+      return null;
+    }
+
+    // Create a schema for each individual product
+    const productSchemas = musicPacks.map(pack => ({
+      '@type': 'Product',
+      'name': pack.title,
+      'image': pack.cover,
+      'description': pack.description,
+      'sku': pack.id.toString(), // A unique ID for the product
+      'brand': {
+        '@type': 'Brand',
+        'name': 'TOP DJ CRATES'
+      },
+      'offers': {
+        '@type': 'Offer',
+        'url': pack.gumroadLink,
+        'priceCurrency': 'USD',
+        'price': pack.discountedPrice.toFixed(2),
+        'availability': 'https://schema.org/InStock',
+        'priceValidUntil': new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString().split('T')[0] // Valid for 1 year
+      }
+    }));
+
+    // Create a main schema that lists all the products on the page
+    const itemListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      'itemListElement': productSchemas.map((schema, index) => ({
+        '@type': 'ListItem',
+        'position': index + 1,
+        'item': schema
+      }))
+    };
+
+    return JSON.stringify(itemListSchema);
+  };
+
+  const productSchemaScript = generateProductSchema();
+  
   return (
     <>
       <Head>
         <title>High-Quality DJ Music & Crates | TOP DJ CRATES</title>
         <meta name="description" content="Save on high-quality DJ music. Browse the best DJ crates for Afro House, Funky House, Arabic Remixes, and more." />
+        
+        {/* --- ADDED THE PRODUCT SCHEMA SCRIPT TO THE HEAD --- */}
+        {productSchemaScript && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: productSchemaScript }}
+          />
+        )}
       </Head>
       <div className="px-4 py-16">
         <section className="text-center mb-16">
